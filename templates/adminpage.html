@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!--Israel Showell-->
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Admin Page</title>
+	
+	<style>
+        a {
+            text-decoration: none;
+            color: #83493; 
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+		
+    </style>
+
+	<!--Looks for the url of a css file that I will add in the future-->
+    <link rel="stylesheet" type=text/css href="{{url_for('static',filename='custom.css')}}">
+
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap"
+      rel="stylesheet"/>
+</head>
+
+<body>
+<center>
+  <div>
+	<h1>Main Admin Page</h1>
+	<!--Looks for the login function in the app.py script-->
+	<p><a href="{{ url_for('adminlogin') }}"><strong>Admin Login</strong></a></p>
+
+	<!--Looks for the Home function in the app.py script-->
+   <p><a href="{{ url_for('Home') }}"><strong>Main Home Page</strong></a></p>
+  </div>
+  </center>
+</body>
+</html>
+

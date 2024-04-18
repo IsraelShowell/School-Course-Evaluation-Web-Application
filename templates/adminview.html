@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!--Israel Showell-->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin View</title>
+	<!--Looks for the url of a css file that I will add in the future-->
+    <link rel="stylesheet" type=text/css href="{{url_for('static',filename='custom.css')}}">
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap"
+      rel="stylesheet"/>
+
+</head>
+
+<body>
+<center>
+  <section class="view-section">
+	<h1>Welcome to the Admin View Page, {{ name }}!</h1>
+	<h2>This page shows the 3 most recent submitted evaluations ordered by Date!</h2>
+	
+	<!--This loops through the arraied tuple I sent through Python-->
+	<table>
+		<!--This makes up the head of the table-->
+		<thead>
+                    <tr>
+                        <th>Course ID</th> 
+                        <th>Course Name</th>
+                        <th>Course Instructor</th>
+                        <th>Overall Course Score</th>
+                        <th>Professor Score</th>
+                        <th>Recommendation Score</th>
+						<th>Date Evaluation Submitted</th>
+                    </tr>
+                </thead>
+		<tbody>
+			{% for evaluation in evaluations %}
+				<tr>
+					<td>{{ evaluation[0] }}</td> <!-- Course ID -->
+					<td>{{ evaluation[1] }}</td> <!-- Course Name -->
+					<td>{{ evaluation[2] }}</td> <!-- Course Instructor -->
+					<td>{{ evaluation[3] }}</td> <!-- Overall Course Score -->
+					<td>{{ evaluation[4] }}</td> <!-- Professor Score -->
+					<td>{{ evaluation[5] }}</td> <!-- Recommendation Score -->
+					<td>{{ evaluation[6] }}</td> <!-- Recommendation Score -->
+				</tr>
+			{% endfor %}
+</tbody>
+	</table>
+		
+		
+	<!--{% for item in eva %}
+        {{ item }}
+      {% endfor %}-->
+	  
+	<!--Looks for the Home function in the app.py script-->
+   <p><a href="{{ url_for('Home') }}"><strong>Main Home Page</strong></a></p>
+  </section>
+</center>
+</body>
+</html>
