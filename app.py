@@ -2,7 +2,7 @@
 # Start Date: 4/15/2024
 # End Date: 4/18/2024
 # Project: School-Course-Evaluation System
-# Version: 1.10
+# Version: 1.20
 
 # Description:
 """
@@ -21,12 +21,11 @@ reusing old software, and database management actions including, but not limited
 - Software Reuse
 """
 
-#These are the imported libaries I am using to make the program 
+#These are the imported libaries I am using to make the program
 from flask import Flask, render_template, request, session
 from registerform import RegistrationForm
 from evaluationform import EvaluationForm
 from datetime import datetime
-from flask import redirect, url_for
 import sqlite3
 import random
 
@@ -34,7 +33,7 @@ import random
 
 #Important variables and objects
 #Requried by Flask to detect the app when running 'flask run'
-app=Flask(__name__)
+app = Flask(__name__)
 #This is used to help protect data being sent by the app.
 #This protection is used to defend against CSRF attacks.
 #(Cross-Site Request Forgery)
