@@ -2,7 +2,7 @@
 # Start Date: 4/15/2024
 # End Date: 4/18/2024
 # Project: School-Course-Evaluation System
-# Version: 1.20
+# Version: 1.20 
 
 # Description:
 This is a Web application where a user can register an account with a username and password, login into their account, and make an evaluation on a course.
