@@ -2,7 +2,7 @@
 # Start Date: 4/15/2024
 # End Date: 4/18/2024
 # Project: School-Course-Evaluation System
-# Version: 1.00
+# Version: 1.10
 
 # Description:
 This is a Web application where a user can register an account with a username and password, login into their account, and make an evaluation on a course.
@@ -28,12 +28,18 @@ https://github.com/IsraelShowell/Register-Login-Website
 Initial Version <br>
 Uploaded to Github <br>
 
+# Version History:
+# V-1.10: (4-22-23-24)
+Evaluations now save the id of the user who submitted it <br>
+Updated various functions to allow for smoother passing of variables and data <br>
 
 
-# Current Features as of V-1.00:
+
+# Current Features as of V-1.10:
 - A user can create an account, login into it, and create an evaluation on a course and its instructor and submit the evaluation to the database
 - An admin can sign into their account, and view the 3 most recent submitted evaluations
 - Databases can be easily changed to allow for easy changes
+- Multiple sessions can now be supported and done at once
 
 # Future Features to Implement:
 - Allow online access to users
