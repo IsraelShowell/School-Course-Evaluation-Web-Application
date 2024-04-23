@@ -26,6 +26,7 @@
 		<!--This makes up the head of the table-->
 		<thead>
                     <tr>
+					<center>
                         <th>Course ID</th> 
                         <th>Course Name</th>
                         <th>Course Instructor</th>
@@ -33,11 +34,14 @@
                         <th>Professor Score</th>
                         <th>Recommendation Score</th>
 						<th>Date Evaluation Submitted</th>
+						<th>Submitted by User ID</th>
+					</center>	
                     </tr>
                 </thead>
 		<tbody>
 			{% for evaluation in evaluations %}
 				<tr>
+				<center>
 					<td>{{ evaluation[0] }}</td> <!-- Course ID -->
 					<td>{{ evaluation[1] }}</td> <!-- Course Name -->
 					<td>{{ evaluation[2] }}</td> <!-- Course Instructor -->
@@ -45,6 +49,8 @@
 					<td>{{ evaluation[4] }}</td> <!-- Professor Score -->
 					<td>{{ evaluation[5] }}</td> <!-- Recommendation Score -->
 					<td>{{ evaluation[6] }}</td> <!-- Recommendation Score -->
+					<td>{{ evaluation[7] }}</td> <!-- User ID -->
+				</center>
 				</tr>
 			{% endfor %}
 </tbody>

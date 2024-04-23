@@ -2,7 +2,7 @@
 # Start Date: 4/15/2024
 # End Date: 4/18/2024
 # Project: School-Course-Evaluation System
-# Version: 1.00
+# Version: 1.10
 
 # Description:
 """
@@ -22,10 +22,11 @@ reusing old software, and database management actions including, but not limited
 """
 
 #These are the imported libaries I am using to make the program 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session
 from registerform import RegistrationForm
 from evaluationform import EvaluationForm
 from datetime import datetime
+from flask import redirect, url_for
 import sqlite3
 import random
 
@@ -38,6 +39,7 @@ app=Flask(__name__)
 #This protection is used to defend against CSRF attacks.
 #(Cross-Site Request Forgery)
 app.secret_key="__privatekey__"
+
 
 #All HTML files are located in the 'templates' because that is where render_template looks for HTML files
 
@@ -64,7 +66,8 @@ def adminview(adminname):
 
     #statement holds an SQL Query for the evaluations table in the management database
     #This query checks to get all evaluations that exist in the database
-    statement=f"SELECT * from evaluations ORDER By DateEvaluationSubmitted LIMIT 3;"
+    #This gets the most recent 3 evaluations
+    statement=f"SELECT * from evaluations ORDER By DateEvaluationSubmitted DESC LIMIT 3;"
 
     #We then tell the cursor to run the query
     a.execute(statement)
@@ -105,7 +108,7 @@ def adminlogin():
             #If the adminname and admin password is not found, the program will not sign them in
             return render_template("adminlogin.html")
         else:
-            #Closes te database, and heads to the adminview function
+            #Closes the database, and heads to the adminview function
             c.close()
             return adminview(adminname)
             
@@ -151,16 +154,40 @@ def login():
             #If the user and password is not found, the program will not sign them in
             return render_template("login.html")
         else:
-            #If the login is right, they go to the dashboard page, and their name is displayed
-            return render_template('dashboard.html', name=userName)
+            #If the login is right, the program finds the ID of the user, and fetches it
+            statement=f"SELECT ID from users WHERE Username='{userName}';"
+            c.execute(statement)
+
+            #This gets the ID and removes the comma that is on the end of it
+            User_ID = c.fetchone()[0]
+
+            #This detects the stored session name and ID
+            session['username'] = userName
+            session['user_id'] = User_ID
+
+            #Calls the dashboard function
+            return dashboard()
     else:
         #If the user is just going to the login page, the page is rendered by the program
          request.method=='GET'
          return render_template("login.html")
 
+#This is the dashboard function
+@app.route('/dashboard') 
+def dashboard():
+    
+    #This detects the stored session name and ID
+    username = session.get('username')
+    user_id = session.get('user_id')
+    
+    #This sends the username and id into the dashboard html file
+    return render_template("dashboard.html", name = username, UID = user_id)
+
+    
+
 @app.route('/evaluationform', methods=['POST','GET']) 
 def evaluationForm():
-    #This creates an object named PingPong based off of the form defined in the registerform module
+    #This creates an object named Evaluation based off of the form defined in the registerform module
     Evaluation = EvaluationForm()
 
     #The program connects to the database
@@ -211,8 +238,9 @@ def evaluationForm():
             
              #If at least the Password or Username are different from what is in the database
             if not data:
-
-                    c.execute("INSERT INTO evaluations (ID,CourseName,CourseInstructor,CourseScale,ProfessorScale,RecommendScale,DateEvaluationSubmitted) VALUES (?,?,?,?,?,?,?)",(Evaluation_ID,CourseName,CourseInstructor,CourseScale,ProfessorScale,RecommendScale, date_created))
+                    user_id = session.get('user_id')
+                    User_ID = user_id
+                    c.execute("INSERT INTO evaluations (ID,CourseName,CourseInstructor,CourseScale,ProfessorScale,RecommendScale,DateEvaluationSubmitted,UserID) VALUES (?,?,?,?,?,?,?,?)",(Evaluation_ID,CourseName,CourseInstructor,CourseScale,ProfessorScale,RecommendScale, date_created, User_ID))
                     eva.commit()
                     eva.close()
                     
@@ -317,8 +345,9 @@ def startup():
     manage_cursor = con.cursor()
     #Runs a query to create a table if it does not exist
     #The data parameters that the tables can handle are a text username and a text password, etc
-    manage_cursor.execute("CREATE TABLE IF NOT EXISTS users(ID INTEGER UNIQUE, Username text, Password text, PhoneNumber INTEGER, Gender text, Address text, Age INTEGER, DateAccountCreated, text)")
-    manage_cursor.execute("CREATE TABLE IF NOT EXISTS admins(ID INTEGER UNIQUE, Username text, Password text, DateAccountCreated text)")
+    #PRIMARY KEY automatically adds the UNIQUE constraint!
+    manage_cursor.execute("CREATE TABLE IF NOT EXISTS users(ID INTEGER PRIMARY KEY, Username text, Password text, PhoneNumber INTEGER, Gender text, Address text, Age INTEGER, DateAccountCreated, text)")
+    manage_cursor.execute("CREATE TABLE IF NOT EXISTS admins(ID INTEGER PRIMARY KEY, Username text, Password text, DateAccountCreated text)")
 
     date_created = str(datetime.now())
     if not manage_cursor.execute("SELECT * FROM admins WHERE ID = 38721").fetchone():
@@ -326,7 +355,7 @@ def startup():
         #I added the comma after the date_created to make sure SQLite recognizes it as a tuple with a single element
         manage_cursor.execute("INSERT INTO admins(ID, Username, Password, DateAccountCreated) VALUES(38721, 'admin','admin',?)",(date_created,))
     
-    manage_cursor.execute("CREATE TABLE IF NOT EXISTS evaluations(ID INTEGER UNIQUE, CourseName text, CourseInstructor text, CourseScale INTEGER, ProfessorScale INTEGER,RecommendScale INTEGER,DateEvaluationSubmitted text)")
+    manage_cursor.execute("CREATE TABLE IF NOT EXISTS evaluations(ID INTEGER PRIMARY KEY, CourseName text, CourseInstructor text, CourseScale INTEGER, ProfessorScale INTEGER,RecommendScale INTEGER,DateEvaluationSubmitted text, UserID INTEGER, FOREIGN KEY(UserID) REFERENCES users(ID))")
 
     #Then the changes are added to the database
     con.commit()
