@@ -20,7 +20,7 @@ reusing old software, and database management actions including, but not limited
 - Software Reuse; Primialy Component and Unit reuse
 
 # Note:
-Reused code from my previous repo: 
+Reused code from my previous repo: <br>
 https://github.com/IsraelShowell/Register-Login-Website
 
 # Version History:
