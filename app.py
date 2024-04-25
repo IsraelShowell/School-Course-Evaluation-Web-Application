@@ -345,7 +345,7 @@ def startup():
     #Runs a query to create a table if it does not exist
     #The data parameters that the tables can handle are a text username and a text password, etc
     #PRIMARY KEY automatically adds the UNIQUE constraint!
-    manage_cursor.execute("CREATE TABLE IF NOT EXISTS users(ID INTEGER PRIMARY KEY, Username text, Password text, PhoneNumber INTEGER, Gender text, Address text, Age INTEGER, DateAccountCreated, text)")
+    manage_cursor.execute("CREATE TABLE IF NOT EXISTS users(ID INTEGER PRIMARY KEY, Username text, Password text, PhoneNumber INTEGER, Gender text, Address text, Age INTEGER, DateAccountCreated text)")
     manage_cursor.execute("CREATE TABLE IF NOT EXISTS admins(ID INTEGER PRIMARY KEY, Username text, Password text, DateAccountCreated text)")
 
     date_created = str(datetime.now())
