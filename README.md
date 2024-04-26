@@ -9,7 +9,7 @@ This is a Web application where a user can register an account with a username a
 An admin can login and view completed evaluations submitted by users.
 This Web application uses SQLite as its database system, HTML/CSS Front-End, and Python as its Back-End. <br>
 This Web application is a way for me to practice Flask development, linking HTML/CSS Front-End to Python Back-End, creating a practical program,
-reusing old software, and database management actions including, but not limited to; 
+reusing old software, and database management actions including, but not limited to;  
 
 - Accessing databases 
 - Creating tables inside databases 
