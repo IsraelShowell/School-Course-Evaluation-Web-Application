@@ -285,7 +285,7 @@ def registrationForm():
             
             #statement holds an SQL Query for the users table in the users database
             #This query checks to see if the user and password entered exist in the database
-            statement=f"SELECT * from users WHERE Username='{userName}' AND Password='{passWord}';"
+            statement=f"SELECT * from users WHERE Username='{userName}';"
 
             #We then tell the cursor to run the query
             c.execute(statement)
@@ -297,7 +297,7 @@ def registrationForm():
             if data:
                 return render_template("error.html")
             else:
-                #If at least the Password or Username are different from what is in the database
+                #If at least the Username is different from what is in the database
                 if not data:
                     
                     #Then the user's username and password will be added into the database
@@ -351,8 +351,8 @@ def startup():
     #Runs a query to create a table if it does not exist
     #The data parameters that the tables can handle are a text username and a text password, etc
     #PRIMARY KEY automatically adds the UNIQUE constraint!
-    manage_cursor.execute("CREATE TABLE IF NOT EXISTS users(User_ID INTEGER PRIMARY KEY, Username text, Password text, PhoneNumber INTEGER, Gender text, Address text, Age INTEGER, DateAccountCreated text)")
-    manage_cursor.execute("CREATE TABLE IF NOT EXISTS admins(Admin_ID INTEGER PRIMARY KEY, Admin_Username text, Password text, DateAccountCreated text)")
+    manage_cursor.execute("CREATE TABLE IF NOT EXISTS users(User_ID INTEGER PRIMARY KEY, Username text NOT NULL, Password text NOT NULL, PhoneNumber INTEGER NOT NULL, Gender text NOT NULL, Address text NOT NULL, Age INTEGER NOT NULL, DateAccountCreated text NOT NULL)")
+    manage_cursor.execute("CREATE TABLE IF NOT EXISTS admins(Admin_ID INTEGER PRIMARY KEY, Admin_Username text NOT NULL, Password text NOT NULL, DateAccountCreated text NOT NULL)")
 
     date_created = str(datetime.now())
     if not manage_cursor.execute("SELECT * FROM admins WHERE Admin_ID = 38721").fetchone():
@@ -360,7 +360,7 @@ def startup():
         #I added the comma after the date_created to make sure SQLite recognizes it as a tuple with a single element
         manage_cursor.execute("INSERT INTO admins(Admin_ID, Admin_Username, Password, DateAccountCreated) VALUES(38721, 'admin','admin',?)",(date_created,))
     
-    manage_cursor.execute("CREATE TABLE IF NOT EXISTS evaluations(Eva_ID INTEGER PRIMARY KEY, CourseName text, CourseInstructor text, CourseScale INTEGER, ProfessorScale INTEGER,RecommendScale INTEGER,DateEvaluationSubmitted text, UserID INTEGER, Username text, FOREIGN KEY(UserID) REFERENCES users(User_ID), FOREIGN KEY(Username) REFERENCES users(Username))")
+    manage_cursor.execute("CREATE TABLE IF NOT EXISTS evaluations(Eva_ID INTEGER PRIMARY KEY, CourseName text NOT NULL, CourseInstructor text NOT NULL, CourseScale INTEGER NOT NULL, ProfessorScale INTEGER NOT NULL,RecommendScale INTEGER NOT NULL, DateEvaluationSubmitted text NOT NULL, UserID INTEGER NOT NULL, Username text NOT NULL, FOREIGN KEY(UserID) REFERENCES users(User_ID), FOREIGN KEY(Username) REFERENCES users(Username))")
 
     #Then the changes are added to the database
     con.commit()

@@ -2,7 +2,7 @@
 # Start Date: 4/15/2024
 # End Date: 4/18/2024
 # Project: School-Course-Evaluation System
-# Version: 1.20
+# Version: 1.30
 
 # Description:
 """
@@ -36,11 +36,11 @@ class RegistrationForm(FlaskForm):
     #Creates the phone field and requires users to use it.
     PhoneNumber=IntegerField(label="Enter Mobile Number",validators=[DataRequired()])
     #Creates the Gender field 
-    Gender=StringField(label="Gender")
+    Gender=StringField(label="Gender",validators=[DataRequired()])
     #Creates the address TextAreaField 
-    Address=TextAreaField(label="Address")
+    Address=TextAreaField(label="Address",validators=[DataRequired()])
     #Creates the username field and requires users to use it.
-    Age=IntegerField(label="Age")
+    Age=IntegerField(label="Age",validators=[DataRequired()])
     
     #Creates the button for users to submit their form
     Submit=SubmitField(label="Send")
