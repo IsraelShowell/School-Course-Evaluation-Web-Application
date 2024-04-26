@@ -2,7 +2,7 @@
 # Start Date: 4/15/2024
 # End Date: 4/18/2024
 # Project: School-Course-Evaluation System
-# Version: 1.20 
+# Version: 1.30
 
 # Description:
 This is a Web application where a user can register an account with a username and password, login into their account, and make an evaluation on a course.
@@ -38,14 +38,20 @@ Updated various functions to allow for smoother passing of variables and data <b
 Web application is now available online: <br>
 https://sisrael.pythonanywhere.com/
 
+# Version History:
+# V-1.30: (4-26-24)
+Modified the database's fields to include more information and improve readability <br>
+Evaluations now show the user's name who submitted it
 
 
-# Current Features as of V-1.20:
+
+# Current Features as of V-1.30:
 - A user can create an account, login into it, and create an evaluation on a course and its instructor and submit the evaluation to the database
 - An admin can sign into their account, and view the 3 most recent submitted evaluations
 - Databases can be easily changed to allow for easy changes
 - Multiple sessions can now be supported and done at once
 - Web application is accessible online
+
 
 # Future Features to Implement:
 - Allow online access to users; Done!
