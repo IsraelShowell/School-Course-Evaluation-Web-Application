@@ -55,31 +55,34 @@ def adminpage():
     #adminpage is referenced in the HTML files
     return render_template('adminpage.html')
 
+
 #This is the adminview
-@app.route('/adminview')
+@app.route('/adminview',methods=['POST','GET'])
 def adminview(adminname):
-    #If the login is right, they go to the dashboard page, and their name is displayed along with previous evaluations
-    adminviews = sqlite3.connect('Management.db')
-    #c serves as a database cursor, a control structure that enables traversal over the records in a database
-    a = adminviews.cursor()
-
-    #statement holds an SQL Query for the evaluations table in the management database
-    #This query checks to get all evaluations that exist in the database
-    #This gets the most recent 3 evaluations
-    statement=f"SELECT * from evaluations ORDER By DateEvaluationSubmitted DESC LIMIT 3;"
-
-    #We then tell the cursor to run the query
-    a.execute(statement)
-
-    #Fetches all the evaluations
-    recent_three_evaluations = a.fetchall()
     
-    #Closes the cursor and database
-    a.close()
-    adminviews.close()
+        #If the login is right, they go to the admin view page, and their name is displayed along with previous evaluations
+        adminviews = sqlite3.connect('Management.db')
+        #c serves as a database cursor, a control structure that enables traversal over the records in a database
+        a = adminviews.cursor()
+
+        #statement holds an SQL Query for the evaluations table in the management database
+        #This query checks to get all evaluations that exist in the database
+        #This gets the most recent 3 evaluations
+        statement=f"SELECT * from evaluations ORDER By DateEvaluationSubmitted DESC LIMIT 3;"
+
+        #We then tell the cursor to run the query
+        a.execute(statement)
+
+        #Fetches all the evaluations
+        recent_three_evaluations = a.fetchall()
     
-    #Sends the name of the admin and the tuple to adminview.html
-    return render_template('adminview.html', name=adminname, evaluations=recent_three_evaluations)
+        #Closes the cursor and database
+        a.close()
+        adminviews.close()
+    
+        #Sends the name of the admin and the tuple to adminview.html
+        return render_template('adminview.html', name=adminname, evaluations=recent_three_evaluations)
+
 
 #This is the adminlogin page
 @app.route('/adminlogin',methods=['POST','GET'])
@@ -96,7 +99,7 @@ def adminlogin():
 
         #statement holds an SQL Query for the users table in the users database
         #This query checks to see if the user and password entered exist in the database
-        statement=f"SELECT * from admins WHERE Username='{adminname}' AND Password='{adminpass}';"
+        statement=f"SELECT * from admins WHERE Admin_Username='{adminname}' AND Password='{adminpass}';"
 
         #We then tell the cursor to run the query
         c.execute(statement)
@@ -117,7 +120,7 @@ def adminlogin():
          #adminpage is referenced in the HTML files
          return render_template('adminlogin.html')
     
-
+    
 
 
 #This is the UserPage
@@ -154,7 +157,7 @@ def login():
             return render_template("login.html")
         else:
             #If the login is right, the program finds the ID of the user, and fetches it
-            statement=f"SELECT ID from users WHERE Username='{userName}';"
+            statement=f"SELECT User_ID from users WHERE Username='{userName}';"
             c.execute(statement)
 
             #This gets the ID and removes the comma that is on the end of it
@@ -212,7 +215,7 @@ def evaluationForm():
             
             #statement holds an SQL Query for the evaluations table in the management database
             #This query checks to see if the ID generated exists in the database
-            statement=f"SELECT * from evaluations WHERE ID='{Evaluation_ID}';"
+            statement=f"SELECT * from evaluations WHERE Eva_ID='{Evaluation_ID}';"
 
             #We then tell the cursor to run the query
             c.execute(statement)
@@ -227,7 +230,7 @@ def evaluationForm():
         
                 #statement holds an SQL Query for the evaluations table in the management database
                 #This query checks to see if the ID generated exists in the database
-                statement=f"SELECT * from evaluations WHERE ID='{Evaluation_ID}';"
+                statement=f"SELECT * from evaluations WHERE Eva_ID='{Evaluation_ID}';"
 
                 #We then tell the cursor to run the query
                 c.execute(statement)
@@ -238,8 +241,11 @@ def evaluationForm():
              #If at least the Password or Username are different from what is in the database
             if not data:
                     user_id = session.get('user_id')
+                    username = session.get('username')
                     User_ID = user_id
-                    c.execute("INSERT INTO evaluations (ID,CourseName,CourseInstructor,CourseScale,ProfessorScale,RecommendScale,DateEvaluationSubmitted,UserID) VALUES (?,?,?,?,?,?,?,?)",(Evaluation_ID,CourseName,CourseInstructor,CourseScale,ProfessorScale,RecommendScale, date_created, User_ID))
+                    Username = username
+                    
+                    c.execute("INSERT INTO evaluations (Eva_ID,CourseName,CourseInstructor,CourseScale,ProfessorScale,RecommendScale,DateEvaluationSubmitted,UserID,Username) VALUES (?,?,?,?,?,?,?,?,?)",(Evaluation_ID,CourseName,CourseInstructor,CourseScale,ProfessorScale,RecommendScale, date_created, User_ID,Username))
                     eva.commit()
                     eva.close()
                     
@@ -300,7 +306,7 @@ def registrationForm():
 
                     #statement holds an SQL Query for the users table in the users database
                     #This query checks to see if the user id generated exists in the database
-                    statement=f"SELECT * from users WHERE ID='{User_ID}';"
+                    statement=f"SELECT * from users WHERE User_ID='{User_ID}';"
 
                     #We then tell the cursor to run the query
                     c.execute(statement)
@@ -314,7 +320,7 @@ def registrationForm():
                         #Generates a random number between 10000 and 30000
                         User_ID = random.randint(10000, 30000)
 
-                        statement=f"SELECT * from users WHERE ID='{User_ID}';"
+                        statement=f"SELECT * from users WHERE User_ID='{User_ID}';"
 
                         #We then tell the cursor to run the query
                         c.execute(statement)
@@ -322,7 +328,7 @@ def registrationForm():
                         #Stores the result of the query in the data variable
                         data2=c.fetchone()
 
-                    c.execute("INSERT INTO users (ID,Username,Password,PhoneNumber,Gender,Address,Age,DateAccountCreated) VALUES (?,?,?,?,?,?,?,?)",(User_ID,userName,passWord,phoneNumber,Gender,Address,Age,date_created))
+                    c.execute("INSERT INTO users (User_ID,Username,Password,PhoneNumber,Gender,Address,Age,DateAccountCreated) VALUES (?,?,?,?,?,?,?,?)",(User_ID,userName,passWord,phoneNumber,Gender,Address,Age,date_created))
                     user.commit()
                     user.close()
                     
@@ -345,16 +351,16 @@ def startup():
     #Runs a query to create a table if it does not exist
     #The data parameters that the tables can handle are a text username and a text password, etc
     #PRIMARY KEY automatically adds the UNIQUE constraint!
-    manage_cursor.execute("CREATE TABLE IF NOT EXISTS users(ID INTEGER PRIMARY KEY, Username text, Password text, PhoneNumber INTEGER, Gender text, Address text, Age INTEGER, DateAccountCreated text)")
-    manage_cursor.execute("CREATE TABLE IF NOT EXISTS admins(ID INTEGER PRIMARY KEY, Username text, Password text, DateAccountCreated text)")
+    manage_cursor.execute("CREATE TABLE IF NOT EXISTS users(User_ID INTEGER PRIMARY KEY, Username text, Password text, PhoneNumber INTEGER, Gender text, Address text, Age INTEGER, DateAccountCreated text)")
+    manage_cursor.execute("CREATE TABLE IF NOT EXISTS admins(Admin_ID INTEGER PRIMARY KEY, Admin_Username text, Password text, DateAccountCreated text)")
 
     date_created = str(datetime.now())
-    if not manage_cursor.execute("SELECT * FROM admins WHERE ID = 38721").fetchone():
+    if not manage_cursor.execute("SELECT * FROM admins WHERE Admin_ID = 38721").fetchone():
         #I only need the admin part to run once to make a new admin, that way multiple admins don't exist, thus boosting security
         #I added the comma after the date_created to make sure SQLite recognizes it as a tuple with a single element
-        manage_cursor.execute("INSERT INTO admins(ID, Username, Password, DateAccountCreated) VALUES(38721, 'admin','admin',?)",(date_created,))
+        manage_cursor.execute("INSERT INTO admins(Admin_ID, Admin_Username, Password, DateAccountCreated) VALUES(38721, 'admin','admin',?)",(date_created,))
     
-    manage_cursor.execute("CREATE TABLE IF NOT EXISTS evaluations(ID INTEGER PRIMARY KEY, CourseName text, CourseInstructor text, CourseScale INTEGER, ProfessorScale INTEGER,RecommendScale INTEGER,DateEvaluationSubmitted text, UserID INTEGER, FOREIGN KEY(UserID) REFERENCES users(ID))")
+    manage_cursor.execute("CREATE TABLE IF NOT EXISTS evaluations(Eva_ID INTEGER PRIMARY KEY, CourseName text, CourseInstructor text, CourseScale INTEGER, ProfessorScale INTEGER,RecommendScale INTEGER,DateEvaluationSubmitted text, UserID INTEGER, Username text, FOREIGN KEY(UserID) REFERENCES users(User_ID), FOREIGN KEY(Username) REFERENCES users(Username))")
 
     #Then the changes are added to the database
     con.commit()
