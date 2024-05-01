@@ -47,7 +47,8 @@ Evaluations now show the user's name who submitted it
 # V-1.40: (5-1-24)
 Modified the database's fields to improve readability <br>
 An admin can now choose to view the most recent 3 evaluations or look up a specific user's ID <br>
-Improved the UI for the AdminView page
+Improved the UI for the AdminView page <br>
+Added better password security for login pages
 
 
 # Current Features as of V-1.40:
