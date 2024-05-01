@@ -11,6 +11,7 @@ This Web application uses SQLite as its database system, HTML/CSS Front-End, and
 This Web application is a way for me to practice Flask development, linking HTML/CSS Front-End to Python Back-End, creating a practical program,
 reusing old software, and database management actions including, but not limited to; 
 
+- Database documentation
 - Accessing databases 
 - Creating tables inside databases 
 - Inserting data into the tables 
@@ -48,7 +49,8 @@ Evaluations now show the user's name who submitted it
 Modified the database's fields to improve readability <br>
 An admin can now choose to view the most recent 3 evaluations or look up a specific user's ID <br>
 Improved the UI for the AdminView page <br>
-Added better password security for login pages
+Added better password security for login pages <br>
+Added database documentation
 
 
 # Current Features as of V-1.40:
@@ -58,7 +60,7 @@ Added better password security for login pages
 - Database and its tables can be easily changed to allow for changes and updates
 - Multiple sessions can now be supported and done at once
 - Web application is accessible online
-
+- Database documentation is now added to showcase the flow of the application
 
 # Future Features to Implement:
 - Allow online access to users; Done!
