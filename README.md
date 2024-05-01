@@ -66,7 +66,7 @@ Added database documentation
 - Allow online access to users; Done!
 - Improve the UI; AdminView page improved
 - Allow more evaluations viewing methods; Done!
-- Refactor code; Begun
+- Refactor code; In progress
 
 # Known/Possible Bugs:
 - Forced a method to switch to GET in a function, may cause errors, but so far none have been detected
