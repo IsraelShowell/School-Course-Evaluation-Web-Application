@@ -2,7 +2,7 @@
 # Start Date: 4/15/2024
 # End Date: 4/18/2024
 # Project: School-Course-Evaluation System
-# Version: 1.30
+# Version: 1.40
 
 # Description:
 """

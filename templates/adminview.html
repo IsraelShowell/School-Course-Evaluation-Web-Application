@@ -12,14 +12,32 @@
     <link
       href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap"
       rel="stylesheet"/>
+	<style>
+	/* Styles the table itself */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+		/* Styles the table headers and table cells */
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: center; /* Center align text within cells */
+            padding: 8px;
+        }
 
+        /* Styles the table headers further */
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+    </style>
 </head>
 
 <body>
 <center>
   <section class="view-section">
 	<h1>Welcome to the Admin View Page, {{ name }}!</h1>
-	<h2>This page shows the 3 most recent submitted evaluations ordered by Date!</h2>
+	<h2>{{ message }}</h2>
 	
 	<!--This loops through the arraied tuple I sent through Python-->
 	<table>
@@ -62,7 +80,16 @@
 	<!--{% for item in eva %}
         {{ item }}
       {% endfor %}-->
-	  
+	  <div></div>
+	  <!--Looks for evaluations associated with that User_ID-->
+	  <form class="search-form" action="{{ url_for('adminview') }}" method="POST">
+		<p>User_ID:<input type="text" name="User_ID"/></p>
+		<p><input type="submit" value="Search"/></p>
+	</form>
+	<form class="reset-form" action="{{ url_for('adminview') }}" method="GET">
+		<p><input type="submit" value="See Most Recent 3 Evaluations "/></p>
+	</form>
+	 <div></div>
 	<!--Looks for the Home function in the app.py script-->
    <p><a href="{{ url_for('Home') }}"><strong>Main Home Page</strong></a></p>
   </section>
