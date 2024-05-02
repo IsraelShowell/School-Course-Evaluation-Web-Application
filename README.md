@@ -54,7 +54,7 @@ An admin can now choose to view the most recent 3 evaluations or look up a speci
 Improved the UI for the AdminView page <br>
 Added better password security for login pages <br>
 Added database documentation
-
+ 
 
 # Current Features as of V-1.40:
 - A user can create an account, login into it, and create an evaluation on a course and its instructor and submit the evaluation to the database
