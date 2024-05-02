@@ -18,7 +18,7 @@ reusing old software, and database management actions including, but not limited
 - Checking the contents of tables
 - Connecting Front-Ends and Back-Ends together
 - Developing Web Applications
-- Software Reuse; Primialy Component and Unit reuse
+- Software Reuse; Primarily Component and Unit reuse
 
 # Note:
 Reused code from my previous repo: <br>
