@@ -36,6 +36,7 @@ An admin can view the first 3 evaluations
 # V-1.10: (4-22-23-24)
 Evaluations now save the ID of the user who submitted it <br>
 Updated various functions to allow for smoother passing of variables and data <br>
+Using Flask sessions library to improve user experience and codebase
 
 # Version History:
 # V-1.20: (4-23-24)
