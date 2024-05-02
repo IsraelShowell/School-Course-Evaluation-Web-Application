@@ -34,7 +34,7 @@ An admin can view the first 3 evaluations
 
 # Version History:
 # V-1.10: (4-22-23-24)
-Evaluations now save the id of the user who submitted it <br>
+Evaluations now save the ID of the user who submitted it <br>
 Updated various functions to allow for smoother passing of variables and data <br>
 
 # Version History:
