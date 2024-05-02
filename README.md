@@ -28,6 +28,9 @@ https://github.com/IsraelShowell/Register-Login-Website
 # V-1.00: (4-15-18-24)
 Initial Version <br>
 Uploaded to Github <br>
+User can fill out an evaluation <br>
+Create an account <br>
+An admin can view the first 3 evaluations 
 
 # Version History:
 # V-1.10: (4-22-23-24)
