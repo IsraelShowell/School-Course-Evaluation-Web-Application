@@ -20,9 +20,10 @@ reusing old software, and database management actions including, but not limited
 - Developing Web Applications
 - Software Reuse; Primarily Component and Unit reuse
 
-# Note:
+# Notes:
 Reused code from my previous repo: <br>
-https://github.com/IsraelShowell/Register-Login-Website
+https://github.com/IsraelShowell/Register-Login-Website <br>
+ChatGPT, and other online tools were NOT extensively used to develop this code, they were mostly used to explain documentation and explain errors as I am still learning!
 
 # Version History:
 # V-1.00: (4-15-18-24)
