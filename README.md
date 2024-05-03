@@ -23,7 +23,7 @@ reusing old software, and database management actions including, but not limited
 # Notes:
 Reused code from my previous repo: <br>
 https://github.com/IsraelShowell/Register-Login-Website <br>
-ChatGPT, and other online tools were NOT extensively used to develop this code, they were mostly used to explain documentation and explain errors as I am still learning!
+ChatGPT, and other online resources were NOT extensively used to develop this code, they were mostly used to explain documentation and explain errors! <br>
 
 # Version History:
 # V-1.00: (4-15-18-24)
