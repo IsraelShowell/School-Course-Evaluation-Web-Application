@@ -11,6 +11,9 @@ This Web application uses SQLite as its database system, HTML/CSS Front-End, and
 This Web application is a way for me to practice Flask development, linking HTML/CSS Front-End to Python Back-End, creating a practical program,
 reusing old software, and database management actions including, but not limited to; 
 
+
+- Python Development
+- Flask Development
 - Database documentation
 - Accessing databases 
 - Creating tables inside databases 
